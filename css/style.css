@@ -1,0 +1,202 @@
+
+.navbar .login-btn {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+
+body{
+  background-color: #343a40;
+}
+/*Filter Button*/
+h2 button {
+  all: inherit;
+  border: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5em 0;
+}
+
+[aria-expanded] rect {
+  fill: currentColor;
+}
+
+
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
+
+header.masthead{
+  position: relative;
+  background-size: cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+.coverImageMain{
+  background: url("../assets/Cocktail_Cover.jpg") no-repeat center center;
+  height: 500px;
+}
+
+.coverImageFindCocktail{
+  background: url("../assets/alcohol_shelf.jpg") no-repeat center center;
+  height: 500px;
+}
+
+/*
+body{
+  background-color: #343a40;
+}
+*/
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+
+/* Card Styles */
+.card-sl {
+  border-radius: 8px;
+  background-color: #51565B;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-image img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 8px 8px 0px 0;
+}
+
+.card-action {
+  position: relative;
+  float: right;
+  margin-top: -25px;
+  margin-right: 20px;
+  z-index: 2;
+  color: #E26D5C;
+  background: #fff;
+  border-radius: 100%;
+  padding: 15px;
+  font-size: 15px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-action:hover {
+  color: #fff;
+  background: #E26D5C;
+}
+
+.card-heading {
+  font-size: 18px;
+  font-weight: bold;
+  background: #fff;
+  padding: 10px 15px;
+}
+
+.card-text {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #636262;
+}
+
+.card-button {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0 0 8px 8px;
+}
+
+/*Divider*/
+.divider{
+  height: 30px;
+}
+
+/*Home Options Grid*/
+.showcase .showcase-img{
+  min-height: 20rem;
+  background-size: cover;
+}
+.showcase-text{
+  padding:10rem;
+}
+.showcase{
+  background-color: #343a40;
+}
+
+
+/*Footer*/
+.footer-basic {
+  padding:40px 0;
+  background-color:#ffffff;
+  color:#4b4c4d;
+}
+
+.footer-basic ul {
+  padding:0;
+  list-style:none;
+  text-align:center;
+  font-size:18px;
+  line-height:1.6;
+  margin-bottom:0;
+}
+
+.footer-basic li {
+  padding:0 10px;
+}
+
+.footer-basic ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+.footer-basic ul a:hover {
+  opacity:1;
+}
+
+
+.footer-basic .social {
+  text-align:center;
+  padding-bottom:25px;
+}
+
+.footer-basic .social > a {
+  font-size:24px;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  border:1px solid #ccc;
+  margin:0 8px;
+  color:inherit;
+  opacity:0.75;
+}
+
+.footer-basic .social > a:hover {
+  opacity:0.9;
+}
+
+.footer-basic .copyright {
+  margin-top:15px;
+  text-align:center;
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:0;
+}

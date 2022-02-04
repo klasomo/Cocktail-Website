@@ -1,0 +1,19 @@
+.my-custom-row
+{
+    background-color: bisque;
+    height: 700px;
+}
+
+
+input[type ='text']::placeholder
+{
+    text-align: right;
+}
+
+
+table tr, table tr * 
+{
+    text-align: right;
+}
+
+
