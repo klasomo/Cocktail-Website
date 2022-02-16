@@ -16,12 +16,12 @@ drop table if exists tbl_recipes;
 CREATE TABLE IF NOT EXISTS tbl_recipes (
     rec_id INT AUTO_INCREMENT PRIMARY KEY,
     rec_name VARCHAR(45) NOT NULL UNIQUE,
-    rec_image VARCHAR(255),						-- Pfad zu dem Bild gespeichert (varchar); Bild direkt ((long)blob)
-    rec_instructions TEXT
+    rec_image VARCHAR(100),
+    rec_instructions VARCHAR(2600)
 );
 
-drop table if  exists tbl_favorites;
-CREATE TABLE IF NOT EXISTS tbl_favorites (
+drop table if  exists tbl_favourites;
+CREATE TABLE IF NOT EXISTS tbl_favourites (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usr_id INT NOT NULL,
     rec_id INT NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS tbl_favorites (
 drop table if exists tbl_ingredients;
 CREATE TABLE IF NOT EXISTS tbl_ingredients (
     ing_id INT AUTO_INCREMENT PRIMARY KEY,
-    ing_name VARCHAR(45) NOT NULL UNIQUE
+    ing_name VARCHAR(45) NOT NULL -- UNIQUE
 );
 
 drop table if  exists tbl_inventory;
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS tbl_recipes_ingredients (
     rec_id INT NOT NULL,
     ing_id INT NOT NULL,
     uni_id INT NOT NULL,
-    amount INT DEFAULT 1 NOT NULL,
+    servings VARCHAR(45) NOT NULL,
     CONSTRAINT uq_reccat UNIQUE (rec_id, ing_id, uni_id),
     CONSTRAINT fk_recing_ing FOREIGN KEY (ing_id)
         REFERENCES tbl_ingredients (ing_id)

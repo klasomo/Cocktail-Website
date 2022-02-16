@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-        header("location: Shoppingcart.php");
+        header("location: WelcomePage.php");
     }
 
     require_once "config.php";
@@ -40,7 +40,7 @@
                                 $_SESSION["loggedin"] = true;
                                 $_SESSION["id"] = $id;
                                 $_SESSION["username"] = $username;
-                                header("location: Shoppingcart.php");
+                                header("location: WelcomePage.php");
                             } else{
                                 $login_err = "Invalid username or password!";
                             }
@@ -70,13 +70,33 @@
   <link rel="stylesheet" href="css/style.css">
 <script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="WelcomePage.php">SelzzUp</a>
+      <div class="collapse navbar-collapse justify-content-between">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link active" href="WelcomePage.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="searchForCocktail.html">Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="Shoppingcart.php">Shopping List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="newCocktail.php">Favorites</a>
+          </li>
+        </ul>     
+      </div>
+  </nav>
 	<section class="h-100">
 		<div class="container h-100">
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
-					<div class="brand text-center">
-						<h1 class="">SelzzUp</h1>
-					</div>
+
 					<div class="card fat">
 						<div class="card-body">
 							<h4 class="card-title">Login</h4>

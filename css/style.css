@@ -12,7 +12,14 @@
 }
 
 body{
-  background-color: #343a40;
+  /*background-color: #343a40;*/
+  padding-top: 55px;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
 }
 /*Filter Button*/
 h2 button {
@@ -99,6 +106,10 @@ body{
   color: #fff;
   background: #E26D5C;
 }
+.cocktail_cover_img{
+  height: 200px;
+  width: 200px;
+}
 
 .card-heading {
   font-size: 18px;
@@ -134,8 +145,9 @@ body{
 .showcase-text{
   padding:10rem;
 }
+
 .showcase{
-  background-color: #343a40;
+  background-color: white;
 }
 
 
@@ -199,4 +211,13 @@ body{
   font-size:13px;
   color:#aaa;
   margin-bottom:0;
+}
+
+
+/*New Cocktail Page*/
+input#btn_import_img{
+  width: 200px;
+}
+input#image_url{
+  width: 200px;
 }
