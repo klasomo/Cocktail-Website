@@ -103,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Make a Cocktail</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Favorites</a>
+            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="showFavourites.php">Favorites</a>
           </li>
         </ul>
         <button class="btn btn-danger" onclick="window.location.href = '<?php if($LoggedIn == true){ echo 'Logout.php';} else{ echo 'PHPLogin.php';}?>'";><?php if($LoggedIn == true){ echo 'Logout';} else{ echo 'Login';} ?></button>
@@ -147,7 +147,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									Already have an account? <a href="login.html">Login</a>
+									Already have an account? <a href="PHPlogin.php">Login</a>
 								</div>
 							</form>
 						</div>
