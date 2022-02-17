@@ -1,7 +1,14 @@
 <?php
     session_start();
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-        header("location: WelcomePage.php");
+        header("location: index.php");
+    }
+
+    $LoggedIn = FALSE;
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        $LoggedIn = TRUE;
+    }else{
+      $LoggedIn = FALSE;
     }
 
     require_once "config.php";
@@ -40,7 +47,7 @@
                                 $_SESSION["loggedin"] = true;
                                 $_SESSION["id"] = $id;
                                 $_SESSION["username"] = $username;
-                                header("location: WelcomePage.php");
+                                header("location: index.php");
                             } else{
                                 $login_err = "Invalid username or password!";
                             }
@@ -74,22 +81,23 @@
       <button class="navbar-toggler" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="WelcomePage.php">SelzzUp</a>
+      <a class="navbar-brand" href="index.php">SelzzUp</a>
       <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
-            <a class="nav-link active" href="WelcomePage.php">Home</a>
+            <a class="nav-link active" href="index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="searchForCocktail.html">Recipes</a>
+            <a class="nav-link active" href="searchForCocktail.php">Recipes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="Shoppingcart.php">Shopping List</a>
+            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Make a Cocktail</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="newCocktail.php">Favorites</a>
+            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Favorites</a>
           </li>
-        </ul>     
+        </ul>
+        <button class="btn btn-danger" onclick="window.location.href = '<?php if($LoggedIn == true){ echo 'Logout.php';} else{ echo 'PHPLogin.php';}?>'";><?php if($LoggedIn == true){ echo 'Logout';} else{ echo 'Login';} ?></button>
       </div>
   </nav>
 	<section class="h-100">

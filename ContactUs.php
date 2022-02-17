@@ -23,17 +23,17 @@
       <button class="navbar-toggler" type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="WelcomePage.php">SelzzUp</a>
+      <a class="navbar-brand" href="index.php">SelzzUp</a>
       <div class="collapse navbar-collapse justify-content-between">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
-            <a class="nav-link active" href="WelcomePage.php">Home</a>
+            <a class="nav-link active" href="index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="searchForCocktail.html">Recipes</a>
+            <a class="nav-link active" href="searchForCocktail.php">Recipes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="Shoppingcart.php">Shopping List</a>
+            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Make a Cocktail</a>
           </li>
           <li class="nav-item">
             <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Favorites</a>
@@ -42,7 +42,7 @@
         <button class="btn btn-danger" onclick="window.location.href = '<?php if($LoggedIn == true){ echo 'Logout.php';} else{ echo 'PHPLogin.php';}?>'";><?php if($LoggedIn == true){ echo 'Logout';} else{ echo 'Login';} ?></button>
       </div>
   </nav>
-	<section class="h-100">
+	<section class="h-100 main_content">
 		<div class="container h-100">
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">

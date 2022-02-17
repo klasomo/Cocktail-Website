@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS tbl_favourites (
 drop table if exists tbl_ingredients;
 CREATE TABLE IF NOT EXISTS tbl_ingredients (
     ing_id INT AUTO_INCREMENT PRIMARY KEY,
-    ing_name VARCHAR(45) NOT NULL -- UNIQUE
+    ing_name VARCHAR(45) NOT NULL
 );
 
 drop table if  exists tbl_inventory;

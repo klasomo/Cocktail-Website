@@ -1,3 +1,76 @@
+<?php
+
+require_once "config.php";
+$cocktailNameView = $_POST["cocktailNameView"];
+$LoggedIn = FALSE;
+    session_start();
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        $LoggedIn = TRUE;
+    }else{
+      $LoggedIn = FALSE;
+    }
+
+
+function getCocktailCategory($link2, $cocktailNameView2)
+{
+    $sqlGetCategory = 'SELECT cat_name FROM tbl_categories
+    JOIN tbl_recipes_categories ON tbl_recipes_categories.cat_id=tbl_categories.cat_id
+    JOIN tbl_recipes ON tbl_recipes.rec_id=tbl_recipes_categories.rec_id
+    WHERE rec_name ="'. $cocktailNameView2 .'";';
+
+    $db_result = mysqli_query($link2, $sqlGetCategory);
+    $CocktailCategory = mysqli_fetch_array($db_result, MYSQLI_ASSOC);
+    return $CocktailCategory["cat_name"];
+}
+
+function getCocktailImage($link3, $cocktailNameView3)
+{
+    $sqlGetImage = 'SELECT rec_image FROM tbl_recipes WHERE rec_name ="'. $cocktailNameView3 .'";';
+
+    $db_result = mysqli_query($link3, $sqlGetImage);
+    $CocktailImage = mysqli_fetch_array($db_result, MYSQLI_ASSOC);
+    return $CocktailImage["rec_image"];
+}
+
+function getCocktailInstrunctions($link4, $cocktailNameView4)
+{
+    $sqlGetInstructions = 'SELECT rec_instructions FROM tbl_recipes where rec_name ="'. $cocktailNameView4 .'";';
+    $db_result = mysqli_query($link4, $sqlGetInstructions);
+    $CocktailInstructions = mysqli_fetch_array($db_result, MYSQLI_ASSOC);
+    return $CocktailInstructions["rec_instructions"];
+}
+
+function getCocktailID($link5, $cocktailNameView5)
+{
+    $sqlGetID = 'SELECT id from tbl_recipes_ingredients where rec_id = (select rec_id from tbl_recipes where rec_name ="'. $cocktailNameView5 .'");';
+
+    $db_result = mysqli_query($link5, $sqlGetID);
+    $CocktailIDdatabase = array();
+    for($i = 0; $CocktailIDdatabase[$i] = mysqli_fetch_array($db_result, MYSQLI_ASSOC); $i++){}
+    
+
+    return $CocktailIDdatabase;
+}
+
+function getCocktailIngredients($link6, $cocktailNameView6)
+{
+    $idArray = array();
+    $idArray = getCocktailID($link6,$cocktailNameView6);
+    $IngredientsArray=array(array());
+    for($i = 0; $i+1<count($idArray);$i++){
+    $sqlGetAmount = 'SELECT servings, uni_name, ing_name from tbl_recipes_ingredients
+    join tbl_ingredients on tbl_ingredients.ing_id=tbl_recipes_ingredients.ing_id
+    join tbl_units on tbl_units.uni_id=tbl_recipes_ingredients.uni_id
+    where tbl_recipes_ingredients.id ="'. implode('',$idArray[$i]) .'";';
+
+    $db_result = mysqli_query($link6,$sqlGetAmount);
+    $IngredientsArray[$i] = mysqli_fetch_array($db_result, MYSQLI_ASSOC);
+    }
+    return $IngredientsArray;
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="de">
     <head>
@@ -14,65 +87,53 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
         <link rel="stylesheet" href="css/style.css">
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <button class="navbar-toggler" type="button">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="#">SelzzUp</a>
-            <div class="collapse navbar-collapse justify-content-between">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="searchForCocktail.html">Recipes</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Shopping List</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Favorites</a>
-                </li>
-              </ul>
-              <button class="btn btn-danger" onclick="window.location.href ='login.html';">Login</button>
-              
-            </div>
-        </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="index.php">SelzzUp</a>
+      <div class="collapse navbar-collapse justify-content-between">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="searchForCocktail.php">Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Make a Cocktail</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Favorites</a>
+          </li>
+        </ul>
+        <button class="btn btn-danger" onclick="window.location.href = '<?php if($LoggedIn == true){ echo 'Logout.php';} else{ echo 'PHPLogin.php';}?>'";><?php if($LoggedIn == true){ echo 'Logout';} else{ echo 'Login';} ?></button>
+      </div>
+  </nav>
             <div class="container">
                 <div class="row mt-5">
                     <div class="vstack gap-2">
-                        <img class="cocktail_cover_img" id="import-cocktail-Image" src="https://us.123rf.com/450wm/captainvector/captainvector1601/captainvector160108917/51367288-cocktail-glass.jpg?ver=6">
-                        <form >
-                            <input class="form-control" id="image_url" placeholder="Image URL" value="">
-                        </form >
-                        <div>
-                            <input type="button" class="btn btn-danger" id="btn_import_img" value="Load Image"/>
-                        </div>
+                        <img class="cocktail_cover_img" id="import-cocktail-Image" src=<?php echo '"' . getCocktailImage($link,$cocktailNameView) . '"'; ?>>
                     </div>
                     <div class="col col-md-9">
-                        <form class="form-inline form-group">
-                            <label class="mr-5">Cocktail Name:</label>
-                            <input id="in_cocktailname" placeholder="Cocktail Name" value="">
-                        </form>
-                        <form class="form-inline form-group search_select_category" id="input_test">
+                      
+                            
+                            <h2><?php echo''. $cocktailNameView .'' ?></h2><br>
+                        
                             <label class="mr-5">Category:</label>
-                            <select class="selectpicker" data-live-search="true" id="cocktail_category_selector">
-                                <option>Cocktail</option>
-                                <option>Shot</option>
-                                <option>Soft Drink</option>
-                                <option>Beer</option>
-                                <option>Punch / Party Drink</option>
-                                <option>Shake</option>
-                                <option>Ordinary Drink</option>
-                                <option>Other / Unknown</option>
-                              </select>
-                        </form>
+                            <label><?php echo''. getCocktailCategory($link,$cocktailNameView) .''; ?></label>
+         
+
                         <div>
                             <label>Cocktail Instructions:</label>
                             <div class="col col-sm-3 col-md-6 text-center">
-                                <form class="instructions" action="newCocktail.html" mehtod="POST">
-                                    <textarea rows = "4" cols = "50" id="in_cocktail_instruction" placeholder="You can type up to 200 Characters"></textarea><br>  
-                                </form>
+                                <div class="instructions_singleCocktail">
+                                    <label>
+                                        <?php
+                                            echo '' . getCocktailInstrunctions($link,$cocktailNameView) . '';
+                                        ?>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -81,36 +142,34 @@
                     <table class="table table-striped table-light" id="ingredient_table">
                         <thead>
                           <tr>
-                            <th scope="col">Amount</th>
+                            <th scope="col">Servings</th>
                             <th scope="col">Unit</th>
                             <th scope="col">Ingredient</th>
                           </tr>
                         </thead>
                         <tbody id="ingredient_table_body">
-                          <tr>
-                            <td id="IngredientAmountCellTemplate">
-                                <input placeholder="Ingredient Amount" value="" id="ingredientAmount_1">
-                            </td>
-                            <td id="IngredinetUnitCellTemplate">
-                                    <select class="selectpicker" data-live-search="true" id="ingredientUnit_1">
-                                        <!--Options set in Javascript-->
-                
-                                    </select>
-                            </td>
-                            <td id="IngredinetCellTemplate">
-                                <input placeholder="Ingredient" value="">
-                            </td>
-                          </tr>
+                        <?php
+                        $db_erg = array(array());
+                        $db_erg = getCocktailIngredients($link,$cocktailNameView);
+                            for($i=0; $i< count($db_erg);$i++){
+                                echo '
+                                <tr>
+                                    <td id="IngredientAmountCellTemplate">
+                                    <label>' .$db_erg[$i]["servings"].'</label>
+                                    </td>
+                                    <td id="IngredinetUnitCellTemplate">
+                                        <label>'. (($db_erg[$i]["uni_name"] == "Null")?' ': $db_erg[$i]["uni_name"]) .'</label>
+                                    </td>
+                                    <td id="IngredinetCellTemplate">
+                                        <label>'.$db_erg[$i]["ing_name"].'</label>
+                                    </td>
+                                </tr>
+                                ';
+                            }
+                        ?>
                         </tbody>
                       </table>
                     
-                </div>
-                <div>
-                    <input type="button" class="btn btn-danger" id="btn_add_ingredient" value="Add Ingredient"/>
-                    <input type="button" class="btn btn-danger" id="btn_delete_row" value="Delete Row"/>
-                </div>
-                <div class="mt-5">
-                    <input type="button" class="btn btn-danger" id="btn_create_cocktail" value="Create Cocktail"/>
                 </div>
                
             </div>

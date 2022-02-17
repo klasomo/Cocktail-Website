@@ -1,6 +1,14 @@
 <?php 
 require_once "config.php";
 
+$LoggedIn = FALSE;
+    session_start();
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        $LoggedIn = TRUE;
+    }else{
+      $LoggedIn = FALSE;
+    }
+
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
 
@@ -78,7 +86,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <link rel="php" href="PHPUser.php">
 <script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
 <body>
-	
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="index.php">SelzzUp</a>
+      <div class="collapse navbar-collapse justify-content-between">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="searchForCocktail.php">Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Make a Cocktail</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?php if($LoggedIn == true){ echo ' active';} else{ echo 'disabled';} ?>" href="newCocktail.php">Favorites</a>
+          </li>
+        </ul>
+        <button class="btn btn-danger" onclick="window.location.href = '<?php if($LoggedIn == true){ echo 'Logout.php';} else{ echo 'PHPLogin.php';}?>'";><?php if($LoggedIn == true){ echo 'Logout';} else{ echo 'Login';} ?></button>
+      </div>
+  </nav>
 	<section class="h-100">
 		<div class="container h-100">
 			<div class="row justify-content-md-center h-100">
